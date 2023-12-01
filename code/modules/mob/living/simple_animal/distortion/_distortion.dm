@@ -22,6 +22,8 @@
 	blood_volume = BLOOD_VOLUME_NORMAL // THERE WILL BE BLOOD. SHED.
 	simple_mob_flags = SILENCE_RANGED_MESSAGE
 	can_patrol = TRUE
+	/// Can this thing spawn?
+	var/can_spawn = 1
 	/// Copy-pasted from megafauna.dm: This allows player controlled mobs to use abilities
 	var/chosen_attack = 1
 	/// Attack actions, sets chosen_attack to the number in the action
@@ -70,12 +72,6 @@
 /mob/living/simple_animal/hostile/distortion/proc/AbnoRadio()
 	var/obj/item/implant/radio/slime/imp = new(src)
 	imp.implant(src, src) //acts as if the abno is both the implanter and the one being implanted, which is technically true I guess?
-
-// Is it currently a combat gamemode? Used to check if somethings can teleport.
-/mob/living/simple_animal/hostile/distortion/proc/CheckCombat()
-	if(SSmaptype.maptype in SSmaptype.combatmaps)
-		return TRUE
-	return FALSE
 
 // Applies fear damage to everyone in range
 /mob/living/simple_animal/hostile/distortion/proc/FearEffect()
@@ -144,7 +140,7 @@
 	patrol_reset()
 	density = FALSE
 	AIStatus = AI_OFF
-	damage_coeff = list(BRUTE = 0, RED_DAMAGE = 0, WHITE_DAMAGE = 0, BLACK_DAMAGE = 0, PALE_DAMAGE = 0) // Prevent death jank
+	ChangeResistances(list(BRUTE = 0, RED_DAMAGE = 0, WHITE_DAMAGE = 0, BLACK_DAMAGE = 0, PALE_DAMAGE = 0)) // Prevent death jank
 	forceMove(egoist) //Hide the distortion inside of the spawned human in case of shinanigains
 	if(unmanifest_effect)
 		new unmanifest_effect(get_turf(src))

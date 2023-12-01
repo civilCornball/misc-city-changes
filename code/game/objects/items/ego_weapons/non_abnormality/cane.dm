@@ -5,7 +5,7 @@
 	desc = "This is a template and should not be seen."
 	force = 18
 	damtype = WHITE_DAMAGE
-	armortype = WHITE_DAMAGE
+
 	attack_verb_continuous = list("bashes", "crushes")
 	attack_verb_simple = list("bash", "crush")
 	release_message = "You release your charge, damaging your opponent!"
@@ -20,6 +20,8 @@
 
 /obj/item/ego_weapon/city/charge/cane/attack_self(mob/user)
 	..()
+	if(!CanUseEgo(user))
+		return FALSE
 	if(charge>=charge_cost)
 		var/target //Didn't even need new var, could literally put anything for first arg, but for consistency sake and less confusion
 		release_charge(target, user)

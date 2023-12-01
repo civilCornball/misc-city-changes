@@ -13,7 +13,8 @@
 	var/list/level_1 = list(
 		/obj/item/food/meat/slab/sweeper,
 		/obj/item/food/meat/slab/worm,
-		/obj/item/food/meat/slab/robot
+		/obj/item/food/meat/slab/robot,
+		/obj/item/food/meat/slab/human/mutant/moth
 		)
 	var/list/level_2 = list(
 		/obj/item/clothing/suit/armor/ego_gear/city,
@@ -51,6 +52,10 @@
 		temp.Add(typecacheof(T))
 	level_2 = temp.Copy()
 	level_2.Remove(typecacheof(/obj/item/clothing/suit/armor/ego_gear/city/misc))
+	level_2.Remove(typecacheof(/obj/item/clothing/suit/armor/ego_gear/city/indigo_armor))
+	level_2.Remove(typecacheof(/obj/item/clothing/suit/armor/ego_gear/city/steel_armor))
+	level_2.Remove(typecacheof(/obj/item/clothing/suit/armor/ego_gear/city/amber_armor))
+	level_2.Remove(typecacheof(/obj/item/clothing/suit/armor/ego_gear/city/green_armor))
 	temp.Cut()
 	for(var/T in level_3)
 		temp.Add(typecacheof(T))
@@ -159,7 +164,7 @@
 			TEMPERANCE_ATTRIBUTE,
 			JUSTICE_ATTRIBUTE)
 
-//Very dumb way to implement "empty hand AND full hand." 
+//Very dumb way to implement "empty hand AND full hand."
 //These two code blocks are the same except for their triggers - if you've got a better idea, please use it.
 /obj/structure/potential/proc/calculate_grade(mob/living/user)
 	if (ishuman(user))
@@ -186,3 +191,17 @@
 
 /obj/structure/potential/attack_hand(mob/living/user)
 	calculate_grade(user)
+
+/obj/structure/timelock
+	name = "T-Corp locking mechanism"
+	desc = "A machine that is impossible to pass"
+	anchored = TRUE
+	density = TRUE
+	resistance_flags = INDESTRUCTIBLE
+
+/obj/structure/timelock/Initialize()
+	..()
+	addtimer(CALLBACK(src, .proc/die), 15 MINUTES)
+
+/obj/structure/timelock/proc/die()
+	qdel(src)

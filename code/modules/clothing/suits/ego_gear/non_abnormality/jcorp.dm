@@ -55,12 +55,12 @@
 	desc = "A sombrero worn by the Los Mariachis leader. It makes you want to dance."
 	icon_state = "aida"
 
-/obj/item/clothing/suit/armor/ego_gear/city/mariachi/aida_boss
+/obj/item/clothing/suit/armor/ego_gear/city/mariachi/aida/boss
 	name = "los mariachis armor"
-	desc = "The outfit of the Los Mariachis leader. No one has seen this form and live."
+	desc = "The outfit of the Los Mariachis leader. No one has seen this and lived."
 	icon_state = "aida_boss"
 	armor = list(RED_DAMAGE = 40, WHITE_DAMAGE = 40, BLACK_DAMAGE = 20, PALE_DAMAGE = 30)
-	hat = /obj/item/clothing/head/ego_hat/aida_hat_boss
+	hat = /obj/item/clothing/head/ego_hat/helmet/aida_hat_boss
 	attribute_requirements = list(
 							FORTITUDE_ATTRIBUTE = 80,
 							PRUDENCE_ATTRIBUTE = 80,
@@ -68,10 +68,7 @@
 							JUSTICE_ATTRIBUTE = 80
 							)
 
-/obj/item/clothing/head/ego_hat/aida_hat_boss
+/obj/item/clothing/head/ego_hat/helmet/aida_hat_boss
 	name = "los mariachis sombrero"
 	desc = "A sombrero worn by the Los Mariachis leader. This one has a glowing mask of a skull."
 	icon_state = "aida_boss"
-	flags_inv = HIDEMASK|HIDEFACE|HIDEFACIALHAIR|HIDEHAIR
-	dynamic_hair_suffix = ""
-	dynamic_fhair_suffix = ""

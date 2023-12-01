@@ -13,7 +13,6 @@
 	melee_damage_lower = 25
 	melee_damage_upper = 30
 	melee_damage_type = BLACK_DAMAGE
-	armortype = BLACK_DAMAGE
 	stat_attack = HARD_CRIT
 	attack_sound = 'sound/weapons/ego/axe2.ogg'
 	attack_verb_continuous = "bashes"
@@ -34,7 +33,6 @@
 	light_power = 7
 
 
-//Proc that can be used for additional effects on unmanifest
 /mob/living/simple_animal/hostile/distortion/lantern/PostUnmanifest(mob/living/carbon/human/egoist)
 	playsound(src, 'sound/effects/blobattack.ogg', 150, FALSE, 4)
 	for(var/turf/TF in orange(2, get_turf(src))) //spawns blood effects
@@ -43,16 +41,6 @@
 		var/obj/effect/decal/cleanable/blood/B  = new(TF)
 		B.bloodiness = 100
 	return
-
-//Unmanifesting is not linked to any proc by default, if you want it to happen during gameplay, it must be called manually.
-/mob/living/simple_animal/hostile/distortion/lantern/attacked_by(obj/item/I, mob/living/user)
-	. = ..()
-	if(istype(I, /obj/item/food/grown/carrot))
-		qdel(I)
-		say("That's all I ever wanted!")
-		can_act = FALSE
-		addtimer(CALLBACK(src,.proc/Unmanifest),3 SECONDS)
-
 
 /mob/living/simple_animal/hostile/distortion/lantern/AttackingTarget()
 	..()

@@ -5,7 +5,7 @@
 	force = 0
 	attack_speed = 1
 	damtype = RED_DAMAGE
-	armortype = RED_DAMAGE
+
 	attack_verb_continuous = list("pokes", "jabs", "tears", "lacerates", "gores")
 	attack_verb_simple = list("poke", "jab", "tear", "lacerate", "gore")
 	hitsound = 'sound/weapons/ego/spear1.ogg'
@@ -46,7 +46,6 @@
 
 	if(!type_overriden)
 		damtype = mod.damagetype
-		armortype = mod.damagetype
 	if(!color)
 		// Material color overwrites
 		color = mod.weaponcolor
@@ -71,3 +70,9 @@
 	//May have to change this later if the contents of the weapon can be accessed.
 	mod.forceMove(src)
 	return
+
+/obj/item/ego_weapon/template/proc/AlterSpecial(subject, add_to = FALSE)
+	if(add_to)
+		special_count += subject
+	else
+		special_count = subject

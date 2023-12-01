@@ -10,7 +10,6 @@
 	maxHealth = 3000
 	health = 3000
 	melee_damage_type = BLACK_DAMAGE
-	armortype = BLACK_DAMAGE
 	rapid_melee = 2
 	melee_damage_lower = 30
 	melee_damage_upper = 40
@@ -22,6 +21,7 @@
 	projectiletype = /obj/projectile/black
 	attack_sound = 'sound/weapons/ego/hammer.ogg'
 	del_on_death = TRUE
+	can_patrol = TRUE
 
 	var/busy = FALSE
 	var/pulse_cooldown
@@ -130,7 +130,6 @@
 	hitsound = 'sound/effects/ordeals/white/black_kunai.ogg'
 	damage = 30
 	damage_type = BLACK_DAMAGE
-	flag = BLACK_DAMAGE
 
 // White Fixer
 /mob/living/simple_animal/hostile/ordeal/white_fixer
@@ -152,6 +151,7 @@
 	simple_mob_flags = SILENCE_RANGED_MESSAGE
 	is_flying_animal = TRUE
 	del_on_death = TRUE
+	can_patrol = TRUE
 
 	var/can_act = TRUE
 	/// When this reaches 480 - begins reflecting damage
@@ -284,10 +284,10 @@
 	playsound(src, 'sound/effects/ordeals/white/white_reflect.ogg', 50, TRUE, 7)
 	visible_message("<span class='warning>[src] starts praying!</span>")
 	icon_state = "fixer_w_pray"
-	damage_coeff = list(BRUTE = 1, RED_DAMAGE = 0, WHITE_DAMAGE = 0, BLACK_DAMAGE = 0, PALE_DAMAGE = 0)
+	ChangeResistances(list(RED_DAMAGE = 0, WHITE_DAMAGE = 0, BLACK_DAMAGE = 0, PALE_DAMAGE = 0))
 	SLEEP_CHECK_DEATH(10 SECONDS)
 	icon_state = icon_living
-	damage_coeff = list(BRUTE = 1, RED_DAMAGE = 0.5, WHITE_DAMAGE = 0, BLACK_DAMAGE = 0.5, PALE_DAMAGE = 1)
+	ChangeResistances(list(RED_DAMAGE = 0.5, WHITE_DAMAGE = 0, BLACK_DAMAGE = 0.5, PALE_DAMAGE = 1))
 	damage_reflection = FALSE
 	can_act = TRUE
 
@@ -349,7 +349,6 @@
 	maxHealth = 3000
 	health = 3000
 	melee_damage_type = RED_DAMAGE
-	armortype = RED_DAMAGE
 	rapid_melee = 2
 	melee_damage_lower = 35
 	melee_damage_upper = 45
@@ -361,6 +360,7 @@
 	move_resist = MOVE_FORCE_OVERPOWERING
 	attack_sound = 'sound/effects/ordeals/white/red_attack.ogg'
 	del_on_death = TRUE
+	can_patrol = TRUE
 
 	var/busy = FALSE
 	var/multislash_cooldown
@@ -486,7 +486,6 @@
 	maxHealth = 4000
 	health = 4000
 	melee_damage_type = PALE_DAMAGE
-	armortype = PALE_DAMAGE
 	melee_damage_lower = 35
 	melee_damage_upper = 45
 	rapid_melee = 2
@@ -665,7 +664,7 @@
 		return FALSE
 	if(isanimal(target))
 		var/mob/living/simple_animal/SA = target
-		if((SA.damage_coeff[PALE_DAMAGE] <= 0.3) && (SA.health >= SA.maxHealth*0.2))
+		if((SA.damage_coeff.getCoeff(PALE_DAMAGE) <= 0.3) && (SA.health >= SA.maxHealth*0.2))
 			return TRUE
 		return FALSE
 	return FALSE
@@ -712,4 +711,3 @@
 	icon_state = "palebullet"
 	damage = 16
 	damage_type = PALE_DAMAGE
-	flag = PALE_DAMAGE
